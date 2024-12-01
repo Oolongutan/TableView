@@ -2,28 +2,26 @@
 //  NavigationViewController.swift
 //  TableView
 //
-//  Created by user264056 on 11/30/24.
+//  Created by Matt Erdahl on 11/30/24.
 //
 
 import UIKit
 
 class NavigationViewController: UIViewController {
 
+    var teaInfo = TeaInfo()
+    var choice: Int = 0
+    
+    @IBOutlet weak var TeaName: UILabel!
+    
+    @IBOutlet weak var Explanation: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        TeaName.text = teaInfo.teas[choice].Name
+        Explanation.text = teaInfo.blurbs[choice]
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

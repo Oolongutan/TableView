@@ -9,34 +9,24 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var teas = [
-        (Name:"Caravan", Type:"Black"),
-        (Name:"Cascadia Breakfast", Type:"Black"),
-        (Name:"Gunpowder Pinhead", Type:"Green"),
-        (Name:"Mild Moroccan Mint", Type:"Green"),
-        (Name:"Silver Needles", Type:"White"),
-        (Name:"Berry White", Type:"White"),
-        (Name:"Bird Song Oolong", Type:"Oolong"),
-        (Name:"Sticky Rice", Type:"Puehr"),
-        (Name:"Dream Blend", Type:"Herbal"),
-        (Name:"Cocoa Rouge", Type:"Herbal"),
-        (Name:"Yellow Mudan", Type:"Yellow")
-    ]
+    var teaInfo = TeaInfo()
+    var choice: Int = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return teas.count
+        return teaInfo.teas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = teas[indexPath.row].Name
-        content.secondaryText = teas[indexPath.row].Type
+        content.text = teaInfo.teas[indexPath.row].Name
+        content.secondaryText = teaInfo.teas[indexPath.row].Type
         cell.contentConfiguration = content
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        choice = tableView.indexPathForSelectedRow!.row
         self.performSegue(withIdentifier: "toNavigation", sender: self)
     }
 
@@ -44,7 +34,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toNavigation" {
+            let navigation = segue.destination as! NavigationViewController
+            navigation.choice = choice
+        }
+    }
 }
 
